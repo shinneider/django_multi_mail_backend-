@@ -4,7 +4,7 @@ from django_multi_mail_backend.message import EmailMessage, EmailMultiAlternativ
 
 
 def send_mail(subject, message, from_email, recipient_list, fail_silently=False, auth_user=None, auth_password=None,
-              connection=None, html_message=None, backend='default'):
+              connection=None, html_message=None, use_backend='default'):
     """
     Easy wrapper for sending a single message to a recipient list. All members
     of the recipient list will see the other recipients in the 'To' field.
@@ -20,7 +20,7 @@ def send_mail(subject, message, from_email, recipient_list, fail_silently=False,
         username=auth_user,
         password=auth_password,
         fail_silently=fail_silently,
-        backend=backend or 'default'
+        use_backend=use_backend or 'default'
     )
     mail = EmailMultiAlternatives(subject, message, from_email, recipient_list, connection=connection)
     if html_message:
@@ -30,7 +30,7 @@ def send_mail(subject, message, from_email, recipient_list, fail_silently=False,
 
 
 def send_mass_mail(datatuple, fail_silently=False, auth_user=None, auth_password=None, connection=None,
-                   backend='default'):
+                   use_backend='default'):
     """
     Given a datatuple of (subject, message, from_email, recipient_list), send
     each message to each recipient list. Return the number of emails sent.
@@ -47,7 +47,7 @@ def send_mass_mail(datatuple, fail_silently=False, auth_user=None, auth_password
         username=auth_user,
         password=auth_password,
         fail_silently=fail_silently,
-        backend=backend or 'default'
+        use_backend=use_backend or 'default'
     )
     messages = [
         EmailMessage(subject, message, sender, recipient, connection=connection)

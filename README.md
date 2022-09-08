@@ -113,15 +113,15 @@ instead use the options below
         from django_multi_mail_backend import send_mail, send_mass_mail
         ...
 
-        send_mail(..., backend='smtp')
-        send_mass_mail(..., backend='ses')
+        send_mail(..., use_use_backend='smtp')
+        send_mass_mail(..., use_backend='ses')
     ```
     or
     ```
         from django.core.mail import send_mail, send_mass_mail, get_connection
         ...
 
-        with get_connection(backend='console') as connection:
+        with get_connection(use_backend='console') as connection:
             send_mail(..., connection=connection)
             send_mass_mail(..., connection=connection)
     ```
@@ -131,15 +131,15 @@ instead use the options below
     from django_multi_mail_backend import EmailMessage, EmailMultiAlternatives
     ...
 
-    EmailMessage(..., backend='smtp2').send()
-    EmailMultiAlternatives(..., backend='original_smtp').send()
+    EmailMessage(..., use_backend='smtp2').send()
+    EmailMultiAlternatives(..., use_backend='original_smtp').send()
     ```
     or 
     ```
     from django.core.mail import EmailMessage, EmailMultiAlternatives, get_connection
     ...
 
-    with get_connection(backend='smtp') as connection:
+    with get_connection(use_backend='smtp') as connection:
         EmailMessage(..., connection=connection).send()
         EmailMultiAlternatives(..., connection=connection).send()
     ```
@@ -149,7 +149,7 @@ instead use the options below
     from django_multi_mail_backend import EmailMessage, EmailMultiAlternatives, get_connection
     ...
 
-    with get_connection(backend='smtp') as connection:
+    with get_connection(use_backend='smtp') as connection:
         connection.send_messages([EmailMessage(...), EmailMultiAlternatives(...)])
     ```
     or
@@ -157,6 +157,6 @@ instead use the options below
     from django.core.mail import EmailMessage, EmailMultiAlternatives, get_connection
     ...
 
-    with get_connection(backend='smtp') as connection:
+    with get_connection(use_backend='smtp') as connection:
         connection.send_messages([EmailMessage(...), EmailMultiAlternatives(...)])
     ```

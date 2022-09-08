@@ -9,14 +9,14 @@ class MultiSMTPBackend(EmailBackend):
     A wrapper that manages the SMTP network connection.
     """
 
-    def get_email_server(self, server):
-        return getattr(settings, 'EMAIL_BACKENDS', {}).get(server, {})
+    def get_email_server(self, backend):
+        return getattr(settings, 'EMAIL_BACKENDS', {}).get(backend, {})
 
     # pylint: disable=too-many-arguments, unused-argument
-    def __init__(self, host=None, port=None, username=None, password=None, use_tls=None, fail_silently=False, 
-                 use_ssl=None, timeout=None, ssl_keyfile=None, ssl_certfile=None, backend='default', **kwargs):
+    def __init__(self, host=None, port=None, username=None, password=None, use_tls=None, fail_silently=False,
+                 use_ssl=None, timeout=None, ssl_keyfile=None, ssl_certfile=None, use_backend='default', **kwargs):
 
-        _server = self.get_email_server(backend)
+        _server = self.get_email_server(use_backend)
         self.fail_silently = fail_silently
 
         self.host = _server.get('HOST', host)

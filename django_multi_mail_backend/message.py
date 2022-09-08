@@ -5,13 +5,13 @@ from django.core.mail.message import EmailMultiAlternatives as _EmailMultiAltern
 
 class MultiServerMixin:
 
-    def __init__(self, *args, backend='default', **kwargs):
+    def __init__(self, *args, use_backend='default', **kwargs):
         super().__init__(*args, **kwargs)
-        self.backend = backend or 'default'
+        self.backend = use_backend or 'default'
 
     def get_connection(self, fail_silently=False):
         if not self.connection:
-            self.connection = get_mail_connection(fail_silently=fail_silently, backend=self.backend)
+            self.connection = get_mail_connection(fail_silently=fail_silently, use_backend=self.backend)
         return self.connection
 
 

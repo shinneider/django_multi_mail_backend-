@@ -5,15 +5,15 @@ from django.conf import settings
 
 class MultiServerBackend:
 
-    def get_email_server(self, server):
-        return getattr(settings, 'EMAIL_BACKENDS', {}).get(server, {})
+    def get_email_server(self, backend):
+        return getattr(settings, 'EMAIL_BACKENDS', {}).get(backend, {})
 
-    def __init__(self, backend='default', **kwargs):
-        _server = self.get_email_server(backend)
+    def __init__(self, use_backend='default', **kwargs):
+        _server = self.get_email_server(use_backend)
         backend = _server.get("BACKEND", "").split(".")
 
         mail_class = getattr(import_module('.'.join(backend[0:-1])), backend[-1])
-        self.backend = mail_class(backend=backend, **kwargs)
+        self.backend = mail_class(use_backend=use_backend, **kwargs)
 
     def __enter__(self):
         return self.backend.__enter__()

@@ -13,16 +13,16 @@ class MultiSESBackend(SESBackend):
         A Django Email backend that uses Amazon's Simple Email Service.
     """
 
-    def get_email_server(self, server):
-        return getattr(settings, 'EMAIL_BACKENDS', {}).get(server, {})
+    def get_email_server(self, backend):
+        return getattr(settings, 'EMAIL_BACKENDS', {}).get(backend, {})
 
     # pylint: disable=too-many-locals, too-many-arguments, unused-argument
     def __init__(self, fail_silently=False, aws_access_key=None, aws_secret_key=None, aws_session_token=None,
                  aws_region_name=None, aws_region_endpoint=None, aws_auto_throttle=None, aws_config=None,
                  dkim_domain=None, dkim_key=None, dkim_selector=None, dkim_headers=None, ses_source_arn=None,
-                 ses_from_arn=None, ses_return_path_arn=None, backend='default', **kwargs):
+                 ses_from_arn=None, ses_return_path_arn=None, use_backend='default', **kwargs):
 
-        _server = self.get_email_server(backend)
+        _server = self.get_email_server(use_backend)
         self.fail_silently = fail_silently
 
         self._access_key_id = _server.get('ACCESS_KEY', aws_access_key)
