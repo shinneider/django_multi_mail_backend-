@@ -24,7 +24,7 @@ setup(
     long_description_content_type='text/markdown',
     author='Shinneider Libanio da Silva',
     author_email='shinneider-libanio@hotmail.com',
-    url='https://github.com/shinneider/django-multi-mail-backend',
+    url='https://github.com/shinneider/django_multi_mail_backend',
     license='MIT',
     packages=find_packages(exclude=['tests*']),
     include_package_data=True,
